@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.6' 
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -18,7 +20,7 @@ jobs:
       - run: whoami
       - run: python -V
       - run: sam build --use-container
-      - run: export RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)
+      - run: export RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py) && echo $RANDOM_HASH
       - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip .
       - run: cd $GITHUB_WORKSPACE
       - run: aws s3 cp $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip s3://xueke477-test-cicd-artifacts
