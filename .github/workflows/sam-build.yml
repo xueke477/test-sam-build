@@ -1,17 +1,19 @@
-name: Build Lambda on ARM64 and upload to S3
+name: Build Lambda and upload to S3
 on: workflow_dispatch
 jobs:
-  build-deploy:
+  build-upload:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-1
           role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
-          role-session-name: BuildAndUploadToS3
+          aws-region: us-east-1
       # sam build 
       - run: whoami
       - run: python -V
