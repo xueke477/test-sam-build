@@ -17,10 +17,9 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
           aws-region: us-east-1
       # sam build 
-      - run: whoami
-      - run: python -V
+      - run: whoami && python -V
       - run: sam build --use-container
-      - run: export RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py) && echo $RANDOM_HASH
-      - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip .
+      - run: echo "RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)" >> $GITHUB_ENV
+      - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${{ env.RANDOM_HASH }}.zip .
       - run: cd $GITHUB_WORKSPACE
-      - run: aws s3 cp $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip s3://xueke477-test-cicd-artifacts
+      - run: aws s3 cp $GITHUB_WORKSPACE/build-${{ env.RANDOM_HASH }}.zip s3://xueke477-test-cicd-artifacts
