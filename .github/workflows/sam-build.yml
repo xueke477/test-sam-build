@@ -14,7 +14,6 @@ jobs:
           aws-region: us-east-1
       # sam build 
       - run: sam build --use-container
-      - run: pushd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction
-      - run: zip -r $GITHUB_WORKSPACE/build.zip .
-      - run: popd
+      - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build.zip .
+      - run: cd $GITHUB_WORKSPACE
       - run: aws s3 cp $GITHUB_WORKSPACE/build.zip s3://xueke477-test-cicd-artifacts
