@@ -18,7 +18,7 @@ jobs:
       - run: whoami
       - run: python -V
       - run: sam build --use-container
-      - run: RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)
+      - run: export RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)
       - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip .
       - run: cd $GITHUB_WORKSPACE
       - run: aws s3 cp $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip s3://xueke477-test-cicd-artifacts
