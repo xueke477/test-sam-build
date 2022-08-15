@@ -9,8 +9,9 @@ jobs:
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
           aws-region: us-east-1
+          role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
+          role-session-name: BuildAndUploadToS3
       # sam build 
       - run: whoami
       - run: python -V
