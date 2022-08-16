@@ -14,6 +14,6 @@ jobs:
       - run: whoami && python -V && echo $HOME
       - run: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
       - run: echo "~/.local/bin:~/.poetry/bin" >> $GITHUB_PATH
-      - run: poetry --version
+      - run: poetry --version && ls -a ~/.local/bin && ls -a ~/.poetry/bin
       - run: poetry install
-      - run: PYTHONPATH=src poetry run pytest tests/unit
+      - run: PYTHONPATH=src poetry run pytest tests/
