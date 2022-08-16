@@ -17,3 +17,4 @@ jobs:
       #     aws-region: us-east-1
       - run: pip install sceptre
       - run: ls -a $HOME
+      - run: sceptre --version
