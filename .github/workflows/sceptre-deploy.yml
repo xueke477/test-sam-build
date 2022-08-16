@@ -1,0 +1,19 @@
+name: Deploy AWS resources with Sceptre
+on: workflow_dispatch
+jobs:
+  build-upload:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.6' 
+      # - uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
+      #     aws-region: us-east-1
+      - run: pip install sceptre
+      - run: ls -a $HOME
