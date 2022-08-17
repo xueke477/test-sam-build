@@ -1,5 +1,11 @@
 name: Deploy AWS resources with Sceptre
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      bucket_name_suffix:
+        description: Suffix of S3 bucket name. Skip to use a random hash.
+        type: string
+        default: ''
 jobs:
   build-upload:
     runs-on: ubuntu-latest
@@ -11,10 +17,13 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8.6' 
-      # - uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
-      #     aws-region: us-east-1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
+          aws-region: us-east-1
       - run: pip install sceptre
-      - run: ls -a $HOME
-      - run: sceptre --version
+      - if: ${{ inputs.bucket_name_suffic == '' }}
+        run: echo "bucket_name_suffix: '$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)'" > $GITHUB_WORKSPACE/sceptre/vars.yaml
+      - if: ${{ inputs.bucket_name_suffic != '' }}
+        run: echo "bucket_name_suffix: '${{ inputs.bucket_name_suffix }}'" > $GITHUB_WORKSPACE/sceptre/vars.yaml
+      - run: sceptre --dir sceptre --var-file sceptre/vars.yaml launch -y
