@@ -26,8 +26,8 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
           aws-region: us-east-1
       - run: pip install sceptre
-      - if: ${{ inputs.bucket_name_suffic == '' }}
+      - if: ${{ github.event.inputs.bucket_name_suffix == '' }}
         run: echo "BUCKET_NAME_SUFFIX=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)" >> $GITHUB_ENV
-      - if: ${{ inputs.bucket_name_suffic != '' }}
-        run: echo "BUCKET_NAME_SUFFIX=${{ inputs.bucket_name_suffix }}" >> $GITHUB_ENV
-      - run: sceptre --dir sceptre --var bucket_name_suffix=${{ env.BUCKET_NAME_SUFFIX }} launch -y ${{ inputs.environment }}
+      - if: ${{ github.event.inputs.bucket_name_suffix != '' }}
+        run: echo "BUCKET_NAME_SUFFIX=${{ github.event.inputs.bucket_name_suffix }}" >> $GITHUB_ENV
+      - run: sceptre --dir sceptre --var bucket_name_suffix=${{ env.BUCKET_NAME_SUFFIX }} launch -y ${{ github.event.inputs.environment }}
