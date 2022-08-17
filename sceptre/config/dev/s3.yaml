@@ -1,0 +1,5 @@
+template:
+  path: s3.yaml
+  type: file
+parameters:
+  BucketName: "xueke477-test-bucket-{{var.random_hash}}"

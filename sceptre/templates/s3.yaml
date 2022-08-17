@@ -1,0 +1,10 @@
+Parameters:
+    BucketName:
+        Type: String
+        Description: Name of the bucket to create
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Ref BucketName
