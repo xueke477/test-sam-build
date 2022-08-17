@@ -23,7 +23,7 @@ jobs:
           aws-region: us-east-1
       - run: pip install sceptre
       - if: ${{ inputs.bucket_name_suffic == '' }}
-        run: echo "bucket_name_suffix: '$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)'" > $GITHUB_WORKSPACE/sceptre/vars.yaml
+        run: echo "BUCKET_NAME_SUFFIX=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)" >> $GITHUB_ENV
       - if: ${{ inputs.bucket_name_suffic != '' }}
-        run: echo "bucket_name_suffix: '${{ inputs.bucket_name_suffix }}'" > $GITHUB_WORKSPACE/sceptre/vars.yaml
-      - run: sceptre --dir sceptre --var-file sceptre/vars.yaml launch -y
+        run: echo "BUCKET_NAME_SUFFIX=${{ inputs.bucket_name_suffix }}" >> $GITHUB_ENV
+      - run: sceptre --dir sceptre --var bucket_name_suffix=${{ env.BUCKET_NAME_SUFFIX }} sceptre/vars.yaml launch -y
