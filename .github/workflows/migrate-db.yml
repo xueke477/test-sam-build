@@ -19,5 +19,6 @@ jobs:
       volumes:
         - ${{ github.workspace }}/database/flywayfiles/sql/:/flyway/sql/
         - ${{ github.workspace }}/database/flywayfiles/conf/:/flyway/conf/
+      options: --entrypoint ''
     steps:
       - run: /flyway/flyway migrate -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306 -user=root -password=${{ secrets.MYSQL_ROOT_PASSWORD }} -locations='filesystem:/flyway/sql/' -defaultSchema=test_db -schemas='test_db'
