@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: whoami
       # - run: whoami && pwd
-      - run: ls -al /Users
+      # - run: ls -al /Users
       - run: echo ${{ github.workspace }}
       - run: ls -al ${{ github.workspace }}
       - run: pwd
