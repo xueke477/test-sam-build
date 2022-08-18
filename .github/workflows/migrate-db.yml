@@ -1,7 +1,35 @@
 name: Migrate DB with flyway
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      mysql_root_password:
+        description: Password of the root user.
+        type: string
+        required: true
+      mysql_database:
+        description: Default database to use.
+        type: string
+        required: true
 jobs:
-  migrate-db:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+  migrate-db:
+    needs: prepare
+    runs-on: ubuntu-latest
+    container:
+      image: "flyway/flyway:7.15"
+      volumes:
+        - $GITHUB_WORKSPACE/database/flywayfiles/sql:/flyway/sql
+        - $GITHUB_WORKSPACE/database/flywayfiles/conf:/flyway/conf
+    services:
+      db:
+        image: "xueke477/mysqlwithcmd:0.1.0"
+        volumes:
+          - $GITHUB_WORKSPACE/database/init.sql:/data/application/init.sql
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ github.event.inputs.mysql_root_password }}
+          MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
+    steps:
+      - run: flyway -url=jdbc:mysql://db:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
