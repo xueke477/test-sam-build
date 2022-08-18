@@ -25,10 +25,10 @@ jobs:
         - ${{ github.workspace}}/database/flywayfiles/conf:/flyway/conf
     services:
       db:
-        image: "xueke477/mysqlwithcmd:0.3.0"
+        image: "xueke477/mysqlwithcmd:0.4.0"
         env:
           MYSQL_ROOT_PASSWORD: ${{ github.event.inputs.mysql_root_password }}
           MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
-        options: --entrypoint "mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-file=/data/application/init.sql"
+        options: --entrypoint mysqld
     steps:
       - run: flyway -url=jdbc:mysql://db:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
