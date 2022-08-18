@@ -11,18 +11,9 @@ on:
         type: string
         required: true
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
   migrate-db:
     needs: prepare
     runs-on: ubuntu-latest
-    container:
-      image: "flyway/flyway:7.15"
-      volumes:
-        - ${{ github.workspace}}/database/flywayfiles/sql:/flyway/sql
-        - ${{ github.workspace}}/database/flywayfiles/conf:/flyway/conf
     services:
       db:
         image: "xueke477/mysqlwithcmd:0.4.0"
@@ -31,4 +22,11 @@ jobs:
           MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
         options: --entrypoint mysqld
     steps:
-      - run: flyway -url=jdbc:mysql://db:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
+      - uses: actions/checkout@v2
+      - uses: joshuaavalon/flyway-action@v2
+        with:
+          url: jdbc:mysql://db:3306?allowPublicKeyRetrieval=True
+          user: root
+          password: ${{ github.event.inputs.mysql_root_password }}
+          locations: filesystem:/flyway/sql/
+      - run: echo 'testing'
