@@ -21,14 +21,7 @@ jobs:
     container:
       image: "flyway/flyway:7.15"
       volumes:
-        - ${{ github.workspace}}/database/flywayfiles/sql:/flyway/sql
-        - ${{ github.workspace}}/database/flywayfiles/conf:/flyway/conf
-    services:
-      db:
-        image: "xueke477/mysqlwithcmd:0.4.0"
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ github.event.inputs.mysql_root_password }}
-          MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
-        options: --entrypoint mysqld
+        - ${{ github.workspace }}/database/flywayfiles/sql:/flyway/sql
+        - ${{ github.workspace }}/database/flywayfiles/conf:/flyway/conf
     steps:
-      - run: flyway -url=jdbc:mysql://db:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
+      - run: flyway -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
