@@ -19,7 +19,7 @@ jobs:
       volumes:
         - ${{ github.workspace }}/database/flywayfiles/sql/:/flyway/sql/
         - ${{ github.workspace }}/database/flywayfiles/conf/:/flyway/conf/
-      options: --entrypoint ''
+      options: --user root
     steps:
       - run: whoami
       - run: ls -a /flyway/sql
