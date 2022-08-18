@@ -31,6 +31,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: ${{ github.event.inputs.mysql_root_password }}
           MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
-        options: --entrypoint "docker-entrypoint.sh && mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+        options: --entrypoint "/entrypoint.sh && mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     steps:
       - run: flyway -url=jdbc:mysql://db:3306?allowPublicKeyRetrieval=True -user=root -password=${{ github.event.inputs.mysql_root_password }} -locations=filesystem:/flyway/sql/ -connectRetries=5 migrate
