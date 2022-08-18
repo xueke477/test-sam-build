@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: ls -a ${{ github.workspace }}/database/flywayfiles/sql
   migrate-db:
     needs: prepare
     runs-on: ubuntu-latest
@@ -22,5 +23,5 @@ jobs:
       options: --user root
     steps:
       - run: whoami
-      - run: ls -a /flyway/sql
-      - run: /flyway/flyway migrate -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306 -user=root -password=${{ secrets.MYSQL_ROOT_PASSWORD }} -locations='filesystem:/flyway/sql/' -defaultSchema=test_db -schemas='test_db'
+      - run: ls -a /flyway/sql && ls -a /
+      # - run: /flyway/flyway migrate -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306 -user=root -password=${{ secrets.MYSQL_ROOT_PASSWORD }} -locations='filesystem:/flyway/sql/' -defaultSchema=test_db -schemas='test_db'
