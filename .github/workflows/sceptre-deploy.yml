@@ -11,7 +11,7 @@ on:
         type: string
         default: 'dev'
 jobs:
-  build-upload:
+  sceptre-deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write

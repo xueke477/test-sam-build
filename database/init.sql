@@ -1,0 +1,6 @@
+CREATE USER IF NOT EXISTS 'admin'@'%' IDENTIFIED BY 'password';
+
+GRANT ALL ON *.* TO 'admin'@'%';
+GRANT ALL PRIVILEGES ON *.* TO '%s'@'%' IDENTIFIED BY '%s';
+
+CREATE DATABASE IF NOT EXISTS test_db;
