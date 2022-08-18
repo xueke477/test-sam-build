@@ -7,27 +7,11 @@ on:
         type: string
         default: 'test_db'
 jobs:
-  # prepare:
-  #   runs-on: ubuntu-latest
-  #   steps:
   migrate-db:
-    # needs: prepare
     runs-on: ubuntu-latest
     container:
       image: "flyway/flyway:7.15"
-      # volumes:
-      #   - ${{ github.workspace }}/database/flywayfiles/sql/:/flyway/sql/
-      #   - ${{ github.workspace }}/database/flywayfiles/conf/:/flyway/conf/
       options: --user root
     steps:
       - uses: actions/checkout@v2
-      - run: whoami
-      # - run: whoami && pwd
-      # - run: ls -al /Users
-      - run: echo ${{ github.workspace }}
-      # - run: ls -al ${{ github.workspace }}
-      - run: pwd
-      - run: ls -al $(pwd)/database/flywayfiles/sql
-      # - run: ls -a /flyway/sql && ls -a / && ls -a
-      # - run: ls -a ${{ github.workspace }}/database/flywayfiles/sql
-      # - run: /flyway/flyway migrate -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306 -user=root -password=${{ secrets.MYSQL_ROOT_PASSWORD }} -locations='filesystem:/flyway/sql/' -defaultSchema=test_db -schemas='test_db'
+      - run: /flyway/flyway migrate -url=jdbc:mysql://${{ secrets.MYSQL_ENDPOINT }}:3306 -user=root -password=${{ secrets.MYSQL_ROOT_PASSWORD }} -locations="filesystem:$(pwd)/database/flywayfiles/sql" -defaultSchema=test_db -schemas='test_db'
