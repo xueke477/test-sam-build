@@ -18,7 +18,7 @@ jobs:
       # volumes:
       #   - ${{ github.workspace }}/database/flywayfiles/sql/:/flyway/sql/
       #   - ${{ github.workspace }}/database/flywayfiles/conf/:/flyway/conf/
-      # options: --user root
+      options: --user root
     steps:
       - uses: actions/checkout@v2
       - run: whoami
