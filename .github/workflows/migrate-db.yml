@@ -26,8 +26,6 @@ jobs:
     services:
       db:
         image: "xueke477/mysqlwithcmd:0.2.0"
-        volumes:
-          - ${{ github.workspace}}/database/init.sql:/data/application/init.sql
         env:
           MYSQL_ROOT_PASSWORD: ${{ github.event.inputs.mysql_root_password }}
           MYSQL_DATABASE: ${{ github.event.inputs.mysql_database }}
