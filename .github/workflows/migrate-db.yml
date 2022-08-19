@@ -3,6 +3,7 @@ on: workflow_dispatch
 jobs:
   migrate-db:
     runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v2
       - uses: xueke477/flyway-migration@334d39b416da45feba4d9e1c5cbc835ba98666a0
         with:
