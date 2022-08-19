@@ -6,10 +6,10 @@ on:
         description: Artifact name
         type: string
         required: true
-      branch:
-        description: Branch name
+      run_id:
+        description: Workflow run_id, can be obtained from URL
         type: string
-        default: 'master'
+        required: true
 jobs:
   download-artifact:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
       - id: download
         uses: dawidd6/action-download-artifact@v2
         with:
-          branch: ${{ inputs.branch }}
+          run_id: ${{ inputs.run_id }}
           name: ${{ inputs.name }}
       - name: Display structure of downloaded files
         run: ls -R
