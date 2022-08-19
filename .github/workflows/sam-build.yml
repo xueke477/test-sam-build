@@ -1,5 +1,11 @@
 name: Build Lambda and upload to S3
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      keep-artifacts:
+        description: Whether to keep the build artifacts
+        type: boolean
+        default: false
 jobs:
   build-upload:
     runs-on: ubuntu-latest
@@ -21,3 +27,8 @@ jobs:
       - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip .
       - run: cd $GITHUB_WORKSPACE
       - run: aws s3 cp $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip s3://xueke477-test-cicd-artifacts
+      - if: ${{ inputs.keep-artifacts }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ env.RANDOM_HASH }}
+          path: ${{ github.workspace }}/.aws-sam/build/HelloWorldFunction
