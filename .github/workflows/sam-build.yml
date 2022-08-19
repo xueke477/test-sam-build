@@ -18,6 +18,6 @@ jobs:
           aws-region: us-east-1
       - run: sam build --use-container
       - run: echo "RANDOM_HASH=$(python $GITHUB_WORKSPACE/scripts/generate_hash.py)" >> $GITHUB_ENV
-      - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${{ env.RANDOM_HASH }}.zip .
+      - run: cd $GITHUB_WORKSPACE/.aws-sam/build/HelloWorldFunction && zip -r $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip .
       - run: cd $GITHUB_WORKSPACE
-      - run: aws s3 cp $GITHUB_WORKSPACE/build-${{ env.RANDOM_HASH }}.zip s3://xueke477-test-cicd-artifacts
+      - run: aws s3 cp $GITHUB_WORKSPACE/build-${RANDOM_HASH}.zip s3://xueke477-test-cicd-artifacts
