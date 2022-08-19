@@ -1,0 +1,18 @@
+name: Download uploaded build artifact by name
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Artifact name
+        type: string
+        required: true
+jobs:
+  download-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - id: download
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.name }}
+      - name: Display structure of downloaded files
+        run: echo ${{ steps.download.outputs.download-path }} && ls -R
