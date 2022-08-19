@@ -9,6 +9,6 @@ jobs:
         with:
           endpoint: ${{ secrets.MYSQL_ENDPOINT }}
           password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          locations: ${{ github.workspace }}/database/flywayfiles/sql
+          locations: filesystem:./database/flywayfiles/sql
           defaultSchema: test_db
           schemas: test_db
