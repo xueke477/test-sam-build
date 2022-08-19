@@ -1,5 +1,5 @@
 name: Migrate DB with flyway
-on: workflow_dispatch:
+on: workflow_dispatch
 jobs:
   migrate-db:
     runs-on: ubuntu-latest
