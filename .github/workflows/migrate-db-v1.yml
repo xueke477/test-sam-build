@@ -1,0 +1,14 @@
+name: Migrate DB with flyway
+on: workflow_dispatch
+jobs:
+  migrate-db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: xueke477/flyway-migration@334d39b416da45feba4d9e1c5cbc835ba98666a0
+        with:
+          url: ${{ secrets.MYSQL_ENDPOINT }}
+          password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          locations: ${{ github.workspace }}/database/flywayfiles/sql
+          defaultSchema: test_db
+          schemas: test_db
