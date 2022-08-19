@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: xueke477/flyway-migration@3e71a415f2638567cb743965a5ab4f5012b014b7
+      - uses: xueke477/flyway-migration@3365bf3e501226f8a0ebaaef3771bdb37a74ca4e
         with:
           url: ${{ secrets.MYSQL_ENDPOINT }}
           password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
