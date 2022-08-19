@@ -6,10 +6,10 @@ on:
         description: Artifact name
         type: string
         required: true
-      commit:
-        description: Full SHA of the commit of the run that uploaded artifact.
+      branch:
+        description: Branch name
         type: string
-        required: true
+        default: 'master'
 jobs:
   download-artifact:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
       - id: download
         uses: dawidd6/action-download-artifact@v2
         with:
-          commit: ${{ inputs.commit }}
+          branch: ${{ inputs.branch }}
           name: ${{ inputs.name }}
       - name: Display structure of downloaded files
         run: ls -R
