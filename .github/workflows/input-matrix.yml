@@ -1,11 +1,11 @@
 name: Input a matrix to run multiple jobs
 on:
   workflow_dispatch:
-    version_list:
-      description: JSON list of Python versions to run the unit test with.
-      type: string
-      default: "{\"python_version\": [\"3.8\", \"3.9\"]}"
-      required: true
+    inputs:
+      version_list:
+        description: JSON list of Python versions to run the unit test with.
+        type: string
+        default: "{\"python_version\": [\"3.8\", \"3.9\"]}"
 jobs:
   unit-test:
     strategy:
