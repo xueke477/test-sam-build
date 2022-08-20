@@ -1,0 +1,22 @@
+name: Input a list to run multiple jobs
+on:
+  workflow_dispatch:
+    inputs:
+      version_list:
+        description: JSON list of Python versions to run the unit test with.
+        type: string
+        default: "[\"3.8\", \"3.9\"]"
+jobs:
+  unit-test:
+    strategy:
+      matrix:
+        python_version: ${{ fromJson(inputs.version_list) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+      - run: echo "The Python version in this test is $(python -V)."
+      - run: pip install pytest
+      - run: PYTHONPATH=src pytest tests/
