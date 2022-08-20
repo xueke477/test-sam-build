@@ -1,4 +1,4 @@
-name: Unit test using poetry
+name: Input a matrix to run multiple jobs
 on:
   workflow_dispatch:
     version_list:
