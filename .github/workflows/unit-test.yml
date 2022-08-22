@@ -16,10 +16,6 @@ jobs:
         run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
       - run: echo "$GITHUB_WORKSPACE/pipx/venvs/poetry/bin" >> $GITHUB_PATH
       - run: which poetry
-      - run: echo $PATH && ls -lF pipx/venvs/poetry/bin
-      - run: ls $GITHUB_WORKSPACE/pipx/venvs/poetry/bin
-      - run: $GITHUB_WORKSPACE/pipx/venvs/poetry/bin/poetry --version
-      - run: ls -a pipx
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8' 
