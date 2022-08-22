@@ -4,11 +4,21 @@ jobs:
   unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.8.6' 
-      - run: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+          python-version: '3.8' 
+          cache: 'poetry'
+      - name: Cache poetry installation
+        id: cache-poetry
+        uses: actions/cache@v3
+        with:
+          path: '.poetry/**'
+          key: ${{ github.ref_name }}-${{ hashFiles('.poetry/**') }}
+      - name: Install poetry if cache misses
+        if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
+        run: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+      - run: echo "cache hit - ${{ toJSON(steps.cache-poetry.outputs.cache-hit) }}"
       - run: echo "~/.poetry/bin" >> $GITHUB_PATH
       - run: poetry install
       - run: PYTHONPATH=src poetry run pytest tests/
