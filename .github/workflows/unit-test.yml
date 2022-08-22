@@ -14,10 +14,11 @@ jobs:
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
         run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
-      - run: echo "$GITHUB_WORKSPACE/pipx/venvs/bin" >> $GITHUB_PATH
-      - run: echo $PATH && ls -R pipx
-      - run: ls $GITHUB_WORKSPACE/pipx/venvs/bin
-      - run: $GITHUB_WORKSPACE/pipx/venvs/bin/poetry --version
+      - run: echo "$GITHUB_WORKSPACE/pipx/venvs/poetry/bin" >> $GITHUB_PATH
+      - run: which poetry
+      - run: echo $PATH && ls -lF pipx/venvs/poetry/bin
+      - run: ls $GITHUB_WORKSPACE/pipx/venvs/poetry/bin
+      - run: $GITHUB_WORKSPACE/pipx/venvs/poetry/bin/poetry --version
       - run: ls -a pipx
       - uses: actions/setup-python@v4
         with:
