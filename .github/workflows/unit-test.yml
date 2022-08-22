@@ -13,7 +13,7 @@ jobs:
           key: ${{ github.ref_name }}-${{ hashFiles('pipx/**') }}
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
-        run: PIPX_HOME=$GITHUB_WORKSPACE=pipx pipx install poetry
+        run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
       - run: echo "$GITHUB_WORKSPACE/pipx/venvs/bin" >> $GITHUB_PATH
       - run: which poetry && ls -al pipx
       - uses: actions/setup-python@v4
