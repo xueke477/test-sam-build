@@ -9,9 +9,9 @@ jobs:
         id: cache-poetry
         uses: actions/cache@v3
         with:
-          path:
-            - '.local/pipx/venvs/poetry/**'
-            - '.local/bin/poetry'
+          path: |
+            '.local/pipx/venvs/poetry/**'
+            '.local/bin/poetry'
           key: ${{ github.ref_name }}-${{ hashFiles('.local/pipx/venvs/poetry/**', '.local/bin/poetry') }}
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
