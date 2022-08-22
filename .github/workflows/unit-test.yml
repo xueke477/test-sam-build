@@ -9,13 +9,13 @@ jobs:
         id: cache-poetry
         uses: actions/cache@v3
         with:
-          path: |
-            '/opt/pipx/venvs/poetry/**'
-            '/opt/pipx_bin/poetry'
-          key: ${{ github.ref_name }}-${{ hashFiles('/opt/pipx/venvs/poetry/**', '/opt/pipx_bin/poetry') }}
+          path: 'pipx/**'
+          key: ${{ github.ref_name }}-${{ hashFiles('pipx/**') }}
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
-        run: pipx install poetry
+        run: PIPX_HOME=$GITHUB_WORKSPACE=pipx pipx install poetry
+      - run: echo "$GITHUB_WORKSPACE/pipx/venvs/bin" >> $GITHUB_PATH
+      - run: which poetry && ls -al pipx
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8' 
