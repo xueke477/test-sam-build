@@ -9,8 +9,8 @@ jobs:
         id: cache-poetry
         uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/pipx/**
-          key: master-branch-poetry-cache
+          path: ${{ github.workspace }}/pipx/venvs/poetry/**
+          key: master-branch-poetry-cache-small
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
         run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
