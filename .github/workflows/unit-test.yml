@@ -5,21 +5,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.8' 
-          cache: 'poetry'
-          cache-dependency-path: 'poetry.lock'
       - name: Cache poetry installation
         id: cache-poetry
         uses: actions/cache@v3
         with:
-          path: '.poetry/**'
-          key: ${{ github.ref_name }}-${{ hashFiles('.poetry/**') }}
+          path:
+            - '.local/pipx/venvs/poetry/**'
+            - '.local/bin/poetry'
+          key: ${{ github.ref_name }}-${{ hashFiles('.local/pipx/venvs/poetry/**', '.local/bin/poetry') }}
       - name: Install poetry if cache misses
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
-        run: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        run: pipx install poetry
+      - run: which poetry
+      - run: ls .local/bin && ls .local/pipx && ls .local/pipx/venvs && ls .local/pipx/venvs/poetry
+      - run: ls -R .local/pipx/venvs/peotry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8' 
+          cache: 'poetry'
       - run: echo "cache hit - ${{ toJSON(steps.cache-poetry.outputs.cache-hit) }}"
-      - run: echo "~/.poetry/bin" >> $GITHUB_PATH
       - run: poetry install
       - run: PYTHONPATH=src poetry run pytest tests/
