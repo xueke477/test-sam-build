@@ -15,11 +15,9 @@ jobs:
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
         run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
       - run: echo "$GITHUB_WORKSPACE/pipx/venvs/poetry/bin" >> $GITHUB_PATH
-      - run: which poetry
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8' 
           cache: 'poetry'
-      - run: echo "cache hit - ${{ toJSON(steps.cache-poetry.outputs.cache-hit) }}"
       - run: poetry install
       - run: PYTHONPATH=src poetry run pytest tests/
