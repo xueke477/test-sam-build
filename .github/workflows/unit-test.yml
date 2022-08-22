@@ -15,7 +15,7 @@ jobs:
         if: ${{ steps.cache-poetry.outputs.cache-hit != 'true' }}
         run: PIPX_HOME=$GITHUB_WORKSPACE/pipx pipx install poetry
       - run: echo "$GITHUB_WORKSPACE/pipx/venvs/bin" >> $GITHUB_PATH
-      - run: echo $PATH && ls
+      - run: echo $PATH && ls -R pipx
       - run: ls $GITHUB_WORKSPACE/pipx/venvs/bin
       - run: $GITHUB_WORKSPACE/pipx/venvs/bin/poetry --version
       - run: ls -a pipx
