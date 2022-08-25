@@ -27,7 +27,8 @@ jobs:
           python-version: '3.8' 
           cache: 'poetry'
       - run: poetry install
-      - run: PYTHONPATH=src poetry run pytest tests/ --cov=src --cov-report html:cov_html > unit-test-output.txt
+      - id: pytest
+        run: PYTHONPATH=src poetry run pytest tests/ --cov=src --cov-report html:cov_html > unit-test-output.txt
         continue-on-error: true
       - name: Upload coverage report
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
@@ -41,3 +42,6 @@ jobs:
         with:
           name: unit-test-output-${{ github.run_id }}
           path: ${{ github.workspace }}/unit-test-output.txt
+      - if: ${{ steps.pytest.outcome == 'failure' }}
+        run: echo "Unit test failed!"
+        run: exit 1
