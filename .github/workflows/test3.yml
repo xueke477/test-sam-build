@@ -4,5 +4,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      # - run: echo "MY_VAR1={\"a\": \"abc\"}" >> $GITHUB_ENV
-      - run: echo ${{ fromJSON(github).ref }}
+      - run: SECRET="{\"a\":\"abc\"}" && echo "::add-mask::$SECRET" && echo "MY_VAR1=$SECRET" >> $GITHUB_ENV
+      - run: echo ${{ env.MY_VAR1 }} && echo "::add-mask::${{ env.MY_VAR1.a }}"
+      - run: echo ${{ fromJSON(env.MY_VAR1)['a'] }}
