@@ -43,5 +43,4 @@ jobs:
           name: unit-test-output-${{ github.run_id }}
           path: ${{ github.workspace }}/unit-test-output.txt
       - if: ${{ steps.pytest.outcome == 'failure' }}
-        run: echo "Unit test failed!"
-        run: exit 1
+        run: echo "Unit test failed!" && exit 1
