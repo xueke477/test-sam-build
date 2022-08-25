@@ -1,0 +1,10 @@
+name: Try PR trigger
+on:
+  pull_request
+jobs:
+  show-content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cat test.txt
+      - run: cat src/mod1.py
