@@ -20,4 +20,16 @@ jobs:
           python-version: '3.8' 
           cache: 'poetry'
       - run: poetry install
-      - run: PYTHONPATH=src poetry run pytest tests/
+      - run: PYTHONPATH=src poetry run pytest tests/ --cov-report html:cov_html > unit-test-output.txt
+      - name: Upload coverage report
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: coverage-${{ github.run_id }}
+          path: ${{ github.workspace }}/cov_html/
+      - name: Display test report
+        run: cat unit-test-output.txt
+      - name: Upload test report
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: unit-test-output-${{ github.run_id }}
+          path: ${{ github.workspace }}/unit-test-output.txt
