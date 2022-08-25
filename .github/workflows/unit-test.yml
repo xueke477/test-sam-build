@@ -10,6 +10,8 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
+    outputs:
+      pytest-outcome: ${{ steps.pytest.outcome }}
     steps:
       - uses: actions/checkout@v3
       - name: Cache poetry installation
@@ -42,5 +44,11 @@ jobs:
         with:
           name: unit-test-output-${{ github.run_id }}
           path: ${{ github.workspace }}/unit-test-output.txt
-      - if: ${{ steps.pytest.outcome == 'failure' }}
+  conclude:
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ needs.unit-test.outputs.pytest-outcome == 'failure' }}
         run: echo "Unit test failed!" && exit 1
+      - if: ${{ needs.unit-test.outputs.pytest-outcome == 'success' }}
+        run: echo "Unit test passed!"
