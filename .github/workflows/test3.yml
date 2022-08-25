@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - run: echo "MY_VAR1={\"a\": \"abc\"}" >> $GITHUB_ENV
-      - run: echo ${{ fromJSON(github)['ref'] }}
+      - run: echo ${{ fromJSON(github).ref }}
