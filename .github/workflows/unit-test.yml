@@ -7,6 +7,14 @@ on:
       - 'src/**.py'
       - 'tests/**.py'
   workflow_dispatch:
+    inputs:
+      skip_migration:
+        description: Skip migration
+        type: boolean
+        default: false
+      path_to_tests:
+        type: string
+        default: ''
   workflow_call:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,7 +42,7 @@ jobs:
           cache: 'poetry'
       - run: poetry install
       - id: pytest
-        run: PYTHONPATH=src poetry run pytest tests/ --cov=src --cov-report html:cov_html > unit-test-output.txt
+        run: PYTHONPATH=src poetry run pytest --cov=src --cov-report html:cov_html tests/${{ inputs.path_to_tests }} > unit-test-output.txt
         continue-on-error: true
       - name: Upload coverage report
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
@@ -52,5 +60,7 @@ jobs:
     needs: unit-test-run
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ inputs.skip_migration }} && echo ${{ !inputs.skip_migration }}
+      - run: echo ${{ inputs.skip_migration == 'false' }} && echo ${{ inputs.skip_migration == null }}
       - if: ${{ needs.unit-test-run.outputs.pytest-outcome == 'failure' }}
         run: echo "Unit test failed!" && exit 1
