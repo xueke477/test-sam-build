@@ -1,4 +1,4 @@
-Name: Get runner's public IP address
+name: Get runner's public IP address
 on: workflow_dispatch
 jobs:
   get-public-ip:
