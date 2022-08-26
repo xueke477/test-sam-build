@@ -7,6 +7,7 @@ on:
       - 'src/**.py'
       - 'tests/**.py'
   workflow_dispatch:
+  workflow_call:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -53,5 +54,3 @@ jobs:
     steps:
       - if: ${{ needs.unit-test.outputs.pytest-outcome == 'failure' }}
         run: echo "Unit test failed!" && exit 1
-      - if: ${{ needs.unit-test.outputs.pytest-outcome == 'success' }}
-        run: echo "Unit test passed!"
