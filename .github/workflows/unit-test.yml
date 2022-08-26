@@ -7,6 +7,11 @@ on:
       - 'src/**.py'
       - 'tests/**.py'
   workflow_dispatch:
+    inputs:
+      skip_migration:
+        description: Skip migration
+        type: boolean
+        default: false
   workflow_call:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -52,5 +57,7 @@ jobs:
     needs: unit-test-run
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ inputs.skip_migration }} && echo ${{ !inputs.skip_migration }}
+      - run: echo ${{ inputs.skip_migration == 'false' }} && echo ${{ inputs.skip_migration == null }}
       - if: ${{ needs.unit-test-run.outputs.pytest-outcome == 'failure' }}
         run: echo "Unit test failed!" && exit 1
