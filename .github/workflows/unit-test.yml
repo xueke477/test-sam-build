@@ -12,7 +12,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  unit-test:
+  unit-test-run:
     runs-on: ubuntu-latest
     outputs:
       pytest-outcome: ${{ steps.pytest.outcome }}
@@ -48,9 +48,9 @@ jobs:
         with:
           name: unit-test-output-${{ github.run_id }}
           path: ${{ github.workspace }}/unit-test-output.txt
-  conclude:
-    needs: unit-test
+  unit-test-conclude:
+    needs: unit-test-run
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ needs.unit-test.outputs.pytest-outcome == 'failure' }}
+      - if: ${{ needs.unit-test-run.outputs.pytest-outcome == 'failure' }}
         run: echo "Unit test failed!" && exit 1
