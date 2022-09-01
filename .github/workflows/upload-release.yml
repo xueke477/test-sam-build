@@ -6,10 +6,6 @@ on:
       tag:
         type: string
         required: true
-      artifact_name:
-        type: string
-        required: false
-        default: 'build'
 permissions:
   contents: write
 jobs:
@@ -17,13 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "INPUT_NAME=${{ inputs.artifact_name }}" >> $GITHUB_ENV
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ inputs.tag }}
           target_commitish: master
-          name: ${{ inputs.tag }}
-          body: ''
           draft: false
           prerelease: false
           fail_on_unmatched_files: true
