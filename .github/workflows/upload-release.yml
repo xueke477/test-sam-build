@@ -16,6 +16,7 @@ jobs:
   upload-release:
     runs-on: ubuntu-latest
     steps:
+      - run: actions/checkout@v3
       - run: echo "INPUT_NAME=${{ inputs.artifact_name }}" >> $GITHUB_ENV
       - uses: softprops/action-gh-release@v1
         with:
@@ -26,4 +27,4 @@ jobs:
           draft: false
           prerelease: false
           fail_on_unmatched_files: true
-          files: template.yaml
+          files: README.md
