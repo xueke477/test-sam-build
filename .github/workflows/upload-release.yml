@@ -9,8 +9,11 @@ on:
 permissions:
   contents: write
 jobs:
+  unit-test:
+    uses: ./.github/workflows/unit-test.yml
   upload-release:
     runs-on: ubuntu-latest
+    needs: unit-test
     steps:
       - uses: actions/checkout@v3
       - uses: softprops/action-gh-release@v1
