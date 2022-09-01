@@ -13,4 +13,4 @@ jobs:
     steps:
       - run: echo ${{ inputs.choice }}
       - run: echo ${{ secrets.SECRET_JSON }}
-      - run: echo ${{ secrets.SECRET_JSON[inputs.choice] }}
+      - run: echo ${{ fromJSON(secrets.SECRET_JSON)[inputs.choice] }}
