@@ -1,0 +1,22 @@
+name: Get Release
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        required: true
+      asset_name:
+        type: string
+        required: true
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: robinraju/release-downloader@v1.4
+      with:
+        repository: "xueke477/test-sam-build"
+        tag: ${{ inputs.tag }}
+        fileName: ${{ inputs.asset_name }}
+        out-file-path: my_downloads
+    - run: ls -al my_downloads
+    - run: cat my_downloads/README.md
