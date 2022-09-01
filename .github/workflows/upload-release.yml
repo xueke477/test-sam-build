@@ -2,16 +2,16 @@ name: Upload Release
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        required: true
+      artifact_name:
+        type: string
+        required: false
+        default: 'build'
 permissions:
   contents: write
-inputs:
-  tag:
-    type: string
-    required: true
-  artifact_name:
-    type: string
-    required: false
-    default: 'build'
 jobs:
   get-release:
     runs-on: ubuntu-latest
