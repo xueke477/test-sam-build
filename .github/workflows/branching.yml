@@ -1,0 +1,12 @@
+name: Branching
+on:
+  workflow_dispatch:
+    inputs:
+      choice:
+        type: string
+        required: true
+jobs:
+  show-choice:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ secrets.SECRET_JSON[inputs.choice] }}"
