@@ -1,0 +1,28 @@
+name: Upload Release
+on:
+  workflow_call:
+  workflow_dispatch:
+permissions:
+  contents: write
+inputs:
+  tag:
+    type: string
+    required: true
+  artifact_name:
+    type: string
+    required: false
+    default: 'build'
+jobs:
+  get-release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "INPUT_NAME=${{ inputs.artifact_name }}" >> $GITHUB_ENV
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ inputs.tag }}
+          target_commitish: master
+          name: ${{ inputs.tag }}
+          body: ''
+          draft: false
+          prerelease: false
+          files: README.md
