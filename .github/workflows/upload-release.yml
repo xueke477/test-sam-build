@@ -13,7 +13,7 @@ on:
 permissions:
   contents: write
 jobs:
-  get-release:
+  upload-release:
     runs-on: ubuntu-latest
     steps:
       - run: echo "INPUT_NAME=${{ inputs.artifact_name }}" >> $GITHUB_ENV
@@ -25,4 +25,5 @@ jobs:
           body: ''
           draft: false
           prerelease: false
-          files: README.md
+          fail_on_unmatched_files: true
+          files: template.yaml
