@@ -16,7 +16,7 @@ jobs:
   upload-release:
     runs-on: ubuntu-latest
     steps:
-      - run: actions/checkout@v3
+      - uses: actions/checkout@v3
       - run: echo "INPUT_NAME=${{ inputs.artifact_name }}" >> $GITHUB_ENV
       - uses: softprops/action-gh-release@v1
         with:
