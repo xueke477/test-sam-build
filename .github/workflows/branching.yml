@@ -3,10 +3,14 @@ on:
   workflow_dispatch:
     inputs:
       choice:
-        type: string
-        required: true
+        type: choice
+        options:
+          - a
+          - b
 jobs:
   show-choice:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ secrets.SECRET_JSON[inputs.choice] }}"
+      - run: echo ${{ inputs.choice }}
+      - run: echo ${{ secrets.SECRET_JSON }}
+      - run: echo ${{ secrets.SECRET_JSON[inputs.choice] }}
