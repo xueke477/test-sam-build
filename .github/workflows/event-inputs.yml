@@ -9,9 +9,9 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     concurrency:
-      group: prefix-${{ github.event.inputs.INPUT1 }}
+      group: prefix-${{ inputs.INPUT1 }}
       cancel-in-progress: false
     steps:
       - run: echo ${{ github.workflow }}
       - run: echo ${{ toJSON(github.event) }}
-      - run: echo ${{ github.event.inputs.INPUT1 }}
+      - run: echo ${{ inputs.INPUT1 }}
