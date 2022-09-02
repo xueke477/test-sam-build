@@ -28,5 +28,6 @@ jobs:
     needs:
       - job2
       - job3
+    if: ${{ always() && (needs.job2.result == 'success') && (needs.job3.result == 'success') }}
     steps:
       - run: echo job4 && echo ${{ needs.job2.result }} && echo ${{ needs.job3.result }}
