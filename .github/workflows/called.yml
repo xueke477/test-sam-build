@@ -1,0 +1,7 @@
+name: Called workflow
+on: workflow_call
+jobs:
+  called-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.workflow }}
