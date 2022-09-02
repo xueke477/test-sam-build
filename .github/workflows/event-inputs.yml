@@ -1,0 +1,15 @@
+name: Test event.inputs
+on:
+  workflow_call:
+    inputs:
+      INPUT1:
+        type: string
+        required: true
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: prefix-${{ github.event.inputs.INPUT1 }}
+      cancel-in-progress: false
+    steps:
+      - run: echo ${{ github.event.inputs.INPUT1 }}
