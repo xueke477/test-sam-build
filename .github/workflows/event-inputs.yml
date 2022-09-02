@@ -13,5 +13,4 @@ jobs:
       cancel-in-progress: false
     steps:
       - run: echo ${{ github.workflow }}
-      - run: echo ${{ toJSON(github.event) }}
       - run: echo ${{ inputs.INPUT1 }}
