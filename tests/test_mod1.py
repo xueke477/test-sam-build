@@ -6,4 +6,4 @@ def test_add() -> None:
 
 
 def test_add_unhappy() -> None:
-    assert add(1, 3) == 4
+    assert add(1, 4) == 5
