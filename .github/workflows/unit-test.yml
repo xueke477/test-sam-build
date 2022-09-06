@@ -1,5 +1,11 @@
 name: Unit test using poetry
 on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**.py'
+      - 'tests/**.py'
   pull_request:
     branches:
       - master
