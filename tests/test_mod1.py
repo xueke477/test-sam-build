@@ -11,3 +11,7 @@ def test_add_happy() -> None:
 
 def test_add_happy2() -> None:
     assert add(1, 4) == 5
+
+
+def test_add_happy3() -> None:
+    assert add(1, 4) == 5
