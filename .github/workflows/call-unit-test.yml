@@ -1,0 +1,12 @@
+name: Call unit-test.yml
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        required: true
+jobs:
+  unit-test:
+    uses: ./.github.workflows/unit-test.yml
+    with:
+      ref: ${{ inputs.tag }}
