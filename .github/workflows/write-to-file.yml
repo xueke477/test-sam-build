@@ -1,10 +1,17 @@
 name: Write secrets to file
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      LOWER:
+        type: string
+        required: true
 jobs:
   write-to-file:
     runs-on: ubuntu-latest
     steps:
-      - run: 'echo "${{ secrets.SECRET_FILE_CONTENTS }}" > secret_file.txt'
+      - run: echo "ENV1=$(echo ${{ inputs.LOWER }} | sed 's/\(.*\)/\U\1/')" >> $GITHUB_ENV
+      - run: echo "${{ secrets[format('PREFIX_{0}', env.ENV1)] }}" > secret_file.txt
+      # - run: 'echo "${{ secrets.SECRET_FILE_CONTENTS }}" > secret_file.txt'
       - name: Upload secret file
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
         with:
