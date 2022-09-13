@@ -6,7 +6,7 @@ on:
         type: string
         required: true
 jobs:
-  join-array:
+  concatenation:
     runs-on: ubuntu-latest
     steps:
       - run: echo "ENV1=$(echo ${{ inputs.LOWER }} | sed 's/\(.*\)/\U\1/')" >> $GITHUB_ENV
@@ -14,4 +14,5 @@ jobs:
       - run: echo $NAME1
       - run: echo ${{ secrets[env.NAME1] }}
       - run: echo "VAR1=${{ secrets[env.NAME1] }}" >> $GITHUB_ENV
-      - run: echo $VAR1
+      - if: ${{ startsWith(env.VAR1, format('this is {}', inputs.LOWER) }}
+        run: VAR1 is correct
