@@ -1,0 +1,17 @@
+name: String concatenation
+on:
+  workflow_dispatch:
+    inputs:
+      LOWER:
+        type: string
+        required: true
+jobs:
+  join-array:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ENV1=$(echo ${{ inputs.LOWER }} | sed 's/\(.*\)/\U\1/')" >> $GITHUB_ENV
+      - run: echo "NAME1=${{ format('PREFIX_{0}', env.ENV1) }}" >> $GITHUB_ENV
+      - run: echo $NAME1
+      - run: echo ${{ secrets[env.NAME1] }}
+      - run: echo "VAR1=${{ secrets[env.NAME1] }}" >> $GITHUB_ENV
+      - run: echo $VAR1
