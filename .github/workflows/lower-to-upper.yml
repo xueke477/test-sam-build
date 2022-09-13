@@ -1,0 +1,10 @@
+name: Lowercase to uppercase
+on: workflow_dispatch
+jobs:
+  lower-to-upper:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "UPPER=$(echo ${{ env.LOWER}} | sed 's/\(.*\)/\U\1/')" >> $GITHUB_ENV
+        env:
+          LOWER: dev-private
+      - run: echo ${{ env.UPPER }}
