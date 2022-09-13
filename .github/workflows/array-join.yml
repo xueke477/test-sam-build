@@ -7,5 +7,6 @@ jobs:
       - run: echo "ENV1=dev" >> $GITHUB_ENV
       - run: echo "NAME1=${{ format('prefix-{0}', env.ENV1) }}" >> $GITHUB_ENV
       - run: echo $NAME1
+      - run: echo ${{ secrets.DICT[env.NAME1] }}
       - run: echo "VAR1=${{ secrets.DICT[env.NAME1] }}" >> $GITHUB_ENV
       - run: echo $VAR1
