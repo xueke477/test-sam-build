@@ -1,0 +1,14 @@
+name: Echo newline character
+on: workflow_dispatch
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: >
+          mkdir -p sceptre/build/ &&
+          echo -en "file_hash: ''\napplication_version: ''\n" > sceptre/build/vars.yaml
+      - name: Upload secret file
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: secret_file
+          path: ${{ github.workspace }}/sceptre/build/vars.yaml
