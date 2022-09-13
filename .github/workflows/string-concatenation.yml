@@ -14,5 +14,5 @@ jobs:
       - run: echo $NAME1
       - run: echo ${{ secrets[env.NAME1] }}
       - run: echo "VAR1=${{ secrets[env.NAME1] }}" >> $GITHUB_ENV
-      - if: ${{ startsWith(env.VAR1, format('this is {0}', inputs.LOWER) }}
+      - if: ${{ startsWith(env.VAR1, format('this is {0}', inputs.LOWER)) }}
         run: VAR1 is correct
