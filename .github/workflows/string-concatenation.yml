@@ -13,6 +13,6 @@ jobs:
       - run: echo "NAME1=${{ format('PREFIX_{0}', env.ENV1) }}" >> $GITHUB_ENV
       - run: echo $NAME1
       - run: echo ${{ secrets[env.NAME1] }}
-      - run: echo "VAR1=${{ secrets[env.NAME1] }}" >> $GITHUB_ENV
+      - run: echo "VAR1=${{ secrets[format('PREFIX_{0}', env.ENV1)] }}" >> $GITHUB_ENV
       - if: ${{ startsWith(env.VAR1, format('this is {0}', inputs.LOWER)) }}
         run: echo "VAR1 is correct"
