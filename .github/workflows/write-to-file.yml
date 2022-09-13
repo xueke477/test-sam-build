@@ -1,0 +1,12 @@
+name: Write secrets to file
+on: workflow_dispatch
+jobs:
+  write-to-file:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "${{ secrets.SECRET_FILE_CONTENTS }}" > secret_file.txt'
+      - name: Upload secret file
+        uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
+        with:
+          name: secret_file
+          path: ${{ github.workspace }}/secret_file.txt
