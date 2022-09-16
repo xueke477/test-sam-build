@@ -1,10 +1,10 @@
 version: '3.5'
 services:
   flyway:
-    image: flyway/flyway:7.15
+    image: flyway/flyway:7.5.3
     network_mode: bridge
     restart: always
-    command: -url=jdbc:mysql://172.17.0.2:3306?allowPublicKeyRetrieval=True -user=root -password=P@ssw0rd -locations=filesystem:/flyway/sql/ -connectRetries=2 migrate
+    command: -url=jdbc:mysql://172.17.0.2:3306?allowPublicKeyRetrieval=True -user=root -password=P@ssw0rd -locations=filesystem:/flyway/sql/ -connectRetries=2 -schemas=test_db,audit_db migrate
     volumes:
       - ./flywayfiles/sql/:/flyway/sql/
       - ./flywayfiles/conf/:/flyway/conf/
@@ -19,6 +19,6 @@ services:
       MYSQL_DATABASE: test_db
     volumes:
       - ./init.sql:/data/application/init.sql
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-file /data/application/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - 3306:3306

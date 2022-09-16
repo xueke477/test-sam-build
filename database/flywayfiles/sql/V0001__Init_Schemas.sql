@@ -1,5 +1,6 @@
 -- Create the schemas
 CREATE DATABASE IF NOT EXISTS `test_db`;
+CREATE DATABASE IF NOT EXISTS `audit_db`;
 
 --  Create the users
 DROP USER IF EXISTS 'dev_user'@'%';
