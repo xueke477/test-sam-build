@@ -1,1 +1,2 @@
 bucket_name_suffix: '7153b196f0'
+flyway_lambda: 'not deploy'

@@ -2,4 +2,5 @@ template:
   path: s3.yaml
   type: file
 parameters:
-  BucketName: "xueke477-test-bucket-{{var.bucket_name_suffix}}"
+  BucketName: "{{project_code}}-test-bucket"
+  FlywayLambda: {{var.flyway_lambda}}

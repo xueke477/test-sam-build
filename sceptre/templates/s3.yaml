@@ -1,10 +1,22 @@
 Parameters:
-    BucketName:
-        Type: String
-        Description: Name of the bucket to create
+  BucketName:
+    Type: String
+    Description: Name of the bucket to create.
+  FlywayLambda:
+    Type: String
+    Default: 'not deploy'
+    AllowedValues:
+      - 'deploy'
+      - 'not deploy'
+    Description: Whether to deploy the Flyway Lambda for DB migration.
+Conditions:
+  DeployFlywayLambda: !Equals
+    - !Ref FlywayLambda
+    - 'deploy'
 Resources:
   S3Bucket:
     Type: 'AWS::S3::Bucket'
+    Condition: DeployFlywayLambda
     DeletionPolicy: Delete
     Properties:
       BucketName: !Ref BucketName
