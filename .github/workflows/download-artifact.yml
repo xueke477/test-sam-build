@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: download
-        uses: dawidd6/action-download-artifact@v2
+        uses: xueke477/download-artifact@173f9e4e6404e8ca72aec144c41e93795e68d2bd
         with:
           run_id: ${{ inputs.run_id }}
           name: ${{ inputs.name }}
