@@ -13,7 +13,7 @@ jobs:
   get-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: robinraju/release-downloader@v1.4
+      - uses: xueke477/download-release@01b1f8c6b5319bca7242d36a3f6cfc464c7bd59e
         with:
           repository: "xueke477/test-sam-build"
           tag: ${{ inputs.tag }}

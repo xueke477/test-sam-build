@@ -1,12 +1,21 @@
 from mod1 import add
+import pytest
+from pytest_mock import MockerFixture
 
 
-def test_add() -> None:
-    assert add(1, 2) == 3
+@pytest.fixture
+def one():
+    return 1
 
 
-def test_add_happy() -> None:
-    assert add(1, 3) == 4
+def test_add(one) -> None:
+    assert add(one, 2) == 3
+
+
+def test_add_happy(mocker) -> None:
+    mocked_fcn = mocker.patch('test_mod1.add')
+    mocked_fcn.return_value = 5
+    assert add(1, 3) == 5
 
 
 def test_add_happy2() -> None:
