@@ -9,11 +9,8 @@ on:
 permissions:
   contents: write
 jobs:
-  unit-test:
-    uses: ./.github/workflows/unit-test.yml
   upload-release:
     runs-on: ubuntu-latest
-    needs: unit-test
     steps:
       - uses: actions/checkout@v3
       - uses: xueke477/create-release@b3656189b90b33b8b06d76d0ec94e54c1767772f
