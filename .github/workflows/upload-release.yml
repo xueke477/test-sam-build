@@ -16,11 +16,8 @@ jobs:
     needs: unit-test
     steps:
       - uses: actions/checkout@v3
-      - uses: softprops/action-gh-release@v1
+      - uses: xueke477/create-release@b3656189b90b33b8b06d76d0ec94e54c1767772f
         with:
           tag_name: ${{ inputs.tag }}
           target_commitish: master
-          draft: false
-          prerelease: false
-          fail_on_unmatched_files: true
           files: README.md
