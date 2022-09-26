@@ -16,7 +16,7 @@ jobs:
       - uses: xueke477/custom-js-action@v1
         if: ${{ inputs.var1 == ''}}
         with:
-          VAR2: 'hello'
+          VAR2: ${{ inputs.var2 }}
       - uses: xueke477/custom-js-action@v1
         if: ${{ inputs.var1 != ''}}
         with:
