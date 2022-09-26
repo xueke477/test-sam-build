@@ -13,11 +13,11 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - uses: xueke477/custom-js-action@v1
+      - uses: xueke477/custom-js-action@v2
         if: ${{ inputs.var1 == ''}}
         with:
           VAR2: ${{ inputs.var2 }}
-      - uses: xueke477/custom-js-action@v1
+      - uses: xueke477/custom-js-action@v2
         if: ${{ inputs.var1 != ''}}
         with:
           var1: ${{ inputs.var1 }}
