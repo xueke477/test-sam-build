@@ -21,4 +21,4 @@ jobs:
         if: ${{ inputs.var1 != ''}}
         with:
           var1: ${{ inputs.var1 }}
-          VAR2: 'hello'
+          VAR2: ${{ inputs.var2 }}
