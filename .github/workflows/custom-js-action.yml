@@ -1,0 +1,24 @@
+name: Custom JS action
+on:
+  workflow_dispatch:
+    inputs:
+      var1:
+        type: string
+        required: false
+        default: ''
+      var2:
+        type: string
+        required: true
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: xueke477/custom-js-action@v1
+        if: ${{ inputs.var1 == ''}}
+        with:
+          VAR2: 'hello'
+      - uses: xueke477/custom-js-action@v1
+        if: ${{ inputs.var1 != ''}}
+        with:
+          var1: ${{ inputs.var1 }}
+          VAR2: 'hello'
