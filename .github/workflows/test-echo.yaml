@@ -1,0 +1,10 @@
+name: Test echo with doublequote
+on: workflow_dispatch
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "VAR1=\"abc,def\"" >> $GITHUB_ENV
+      - run: echo $VAR1
+      - run: echo "VAR2=$(echo $VAR1 | sed 's/\"//g')" >> $GITHUB_ENV
+      - run: echo $VAR2
