@@ -1,0 +1,10 @@
+name: Test User
+on: workflow_dispatch
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'hello' > hello.txt
+      - run: stat -c "%u:%g" hello.txt
+      - run: ls -l
+      - run: id
