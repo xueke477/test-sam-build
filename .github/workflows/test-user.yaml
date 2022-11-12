@@ -10,4 +10,4 @@ jobs:
       - run: stat -c "%u:%g" hello
       - run: ls -l
       - run: stat -c "%u:%g" .
-      - run: rm hello
+      - run: rmdir hello
