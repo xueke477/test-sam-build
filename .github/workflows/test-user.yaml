@@ -4,7 +4,10 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'hello' > hello.txt
-      - run: stat -c "%u:%g" hello.txt
+      - run: >
+          docker run --rm -v ${{ github.workspace }}:/data/ -w /data
+          --entrypoint=mkdir python:3.9.15-alpine hello
+      - run: stat -c "%u:%g" hello
       - run: ls -l
-      - run: id
+      - run: stat -c "%u:%g" .
+      - run: rm hello
