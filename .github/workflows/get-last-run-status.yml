@@ -1,0 +1,18 @@
+name: Get Last Run Status
+on:
+  workflow_dispatch:
+    inputs:
+      NAME:
+        type: string
+        description: workflow name
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    steps:
+      - uses: xueke477/get-last-run-status@v1
+        id: last-status
+        with:
+          WORKFLOW_FILENAME: ${{ inputs.NAME }}
+      - run: echo ${{ steps.last-status.outputs.result }}
