@@ -1,0 +1,13 @@
+name: Test Interpolation Order
+on:
+  workflow_dispatch:
+    inputs:
+      VAR1:
+        type: string
+        description: Input string.
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "VAR2=abc" >> $GITHUB_ENV
+      - run: echo ${{ inputs.VAR1 }}
