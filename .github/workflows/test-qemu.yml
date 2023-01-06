@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install qemu binfmt-support qemu-user-static
-      - run: docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      - run: docker run --rm --privileged multiarch/qemu-user-static --reset
       - run: docker run --rm --platform linux/arm64/v8 public.ecr.aws/sam/build-python3.8:latest-arm64 sam --version
